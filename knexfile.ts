@@ -1,13 +1,22 @@
-import type { Knex } from "knex";
+import type { Knex, knex as setupKnex } from "knex";
 
 // Update with your config settings.
+interface KnexConfig {
+  [key: string]: object;
+}
 
-const config: { [key: string]: Knex.Config } = {
+export const knex: KnexConfig = {
   development: {
     client: "sqlite3",
     connection: {
-      filename: "./dev.sqlite3"
-    }
+      filename: "./db/mydb.sqlite3",
+    },
+    useNullAsDefault: true,
+    migrations: {
+      extension: "ts",
+      directory: "./db/migrations",
+    },
+    
   },
 
   staging: {
@@ -15,15 +24,15 @@ const config: { [key: string]: Knex.Config } = {
     connection: {
       database: "my_db",
       user: "username",
-      password: "password"
+      password: "password",
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      tableName: "knex_migrations"
-    }
+      tableName: "knex_migrations",
+    },
   },
 
   production: {
@@ -31,17 +40,16 @@ const config: { [key: string]: Knex.Config } = {
     connection: {
       database: "my_db",
       user: "username",
-      password: "password"
+      password: "password",
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      tableName: "knex_migrations"
-    }
-  }
-
+      tableName: "knex_migrations",
+    },
+  },
 };
 
-module.exports = config;
+module.exports = knex;

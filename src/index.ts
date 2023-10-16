@@ -3,7 +3,7 @@
 // npx watch tsx src/index.ts ==> roda o app e fica escutando as alterações
 //npx tsc src/index.ts ==> converte o arquivo para js e cria um arquivo js
 import fastify from "fastify";
-import { knex } from "./database";
+import knex from "knex";
 
 const app = fastify();
 
